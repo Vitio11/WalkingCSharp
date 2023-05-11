@@ -1,41 +1,108 @@
-int currentAssignments = 5;
+int examAssignments = 5;
 
-int sophia1 = 93;
-int sophia2 = 87;
-int sophia3 = 98;
-int sophia4 = 95;
-int sophia5 = 100;
+string[] studentNames = new string[] { "Sophia", "Andrew", "Emma", "Logan" };
 
-int nicolas1 = 80;
-int nicolas2 = 83;
-int nicolas3 = 82;
-int nicolas4 = 88;
-int nicolas5 = 85;
+int[] sophiaScores = new int[] { 90, 86, 87, 98, 100, 94, 90 };
+int[] andrewScores = new int[] { 92, 89, 81, 96, 90, 89 };
+int[] emmaScores = new int[] { 90, 85, 87, 98, 68, 89, 89, 89 };
+int[] loganScores = new int[] { 90, 95, 87, 88, 96, 96 };
 
-int zahirah1 = 84;
-int zahirah2 = 96;
-int zahirah3 = 73;
-int zahirah4 = 85;
-int zahirah5 = 79;
+int[] studentScores = new int[10];
 
-int jeong1 = 90;
-int jeong2 = 92;
-int jeong3 = 98;
-int jeong4 = 100;
-int jeong5 = 97;
+string currentStudentLetterGrade = "";
 
-int sophiaSum = sophia1 + sophia2 + sophia3 + sophia4 + sophia5;
-int nicolasSum = nicolas1 + nicolas2 + nicolas3 + nicolas4 + nicolas5;
-int zahirahSum = zahirah1 + zahirah2 + zahirah3 + zahirah4 + zahirah5;
-int jeongSum = jeong1 + jeong2 + jeong3 + jeong4 + jeong5;
+Clear();
+WriteLine("Student\t\tExam Score\tOverall Grade\tExtra Credit\n");
 
-decimal sophiaScore = (decimal) sophiaSum / currentAssignments;
-decimal nicolasScore = (decimal) nicolasSum / currentAssignments;
-decimal zahirahScore = (decimal) zahirahSum / currentAssignments;
-decimal jeongScore = (decimal) jeongSum / currentAssignments;
 
-Console.WriteLine("Student\t\tGrade\n");
-Console.WriteLine("Sophia:\t\t" + sophiaScore + "\tA");
-Console.WriteLine("Nicolas:\t" + nicolasScore + "\tB");
-Console.WriteLine("Zahirah:\t" + zahirahScore + "\tB");
-Console.WriteLine("Jeong:\t\t" + jeongScore + "\tA");
+foreach (string name in studentNames)
+{
+    string currentStudent = name;
+
+    if (currentStudent == "Sophia")
+        studentScores = sophiaScores;
+
+    else if (currentStudent == "Andrew")
+        studentScores = andrewScores;
+
+    else if (currentStudent == "Emma")
+        studentScores = emmaScores;
+
+    else if (currentStudent == "Logan")
+        studentScores = loganScores;
+
+    int gradedAssignments = 0;
+    int gradedExtraCreditAssignments = 0;
+
+    int sumExamScores = 0;
+    int sumExtraCreditScores = 0;
+
+    decimal currentStudentGrade = 0;
+    decimal currentStudentExamScore = 0;
+    decimal currentStudentExtraCreditScore = 0;
+
+    foreach (int score in studentScores)
+    {
+        gradedAssignments += 1;
+
+        if (gradedAssignments <= examAssignments)
+        {
+            sumExamScores = sumExamScores + score;
+        }
+
+        else
+        {
+            gradedExtraCreditAssignments += 1;
+            sumExtraCreditScores += score;
+        }
+    }
+
+    currentStudentExamScore = (decimal)(sumExamScores) / examAssignments;
+    currentStudentExtraCreditScore = (decimal)(sumExtraCreditScores) / gradedExtraCreditAssignments;
+
+    currentStudentGrade = (decimal)((decimal)sumExamScores + ((decimal)sumExtraCreditScores / 10)) / examAssignments;
+
+    if (currentStudentGrade >= 97)
+        currentStudentLetterGrade = "A+";
+
+    else if (currentStudentGrade >= 93)
+        currentStudentLetterGrade = "A";
+
+    else if (currentStudentGrade >= 90)
+        currentStudentLetterGrade = "A-";
+
+    else if (currentStudentGrade >= 87)
+        currentStudentLetterGrade = "B+";
+
+    else if (currentStudentGrade >= 83)
+        currentStudentLetterGrade = "B";
+
+    else if (currentStudentGrade >= 80)
+        currentStudentLetterGrade = "B-";
+
+    else if (currentStudentGrade >= 77)
+        currentStudentLetterGrade = "C+";
+
+    else if (currentStudentGrade >= 73)
+        currentStudentLetterGrade = "C";
+
+    else if (currentStudentGrade >= 70)
+        currentStudentLetterGrade = "C-";
+
+    else if (currentStudentGrade >= 67)
+        currentStudentLetterGrade = "D+";
+
+    else if (currentStudentGrade >= 63)
+        currentStudentLetterGrade = "D";
+
+    else if (currentStudentGrade >= 60)
+        currentStudentLetterGrade = "D-";
+
+    else
+        currentStudentLetterGrade = "F";
+
+    WriteLine($"{currentStudent}\t\t{currentStudentExamScore}\t\t{currentStudentGrade}\t{currentStudentLetterGrade}\t{currentStudentExtraCreditScore} ({(((decimal)sumExtraCreditScores / 10) / examAssignments)} pts)");
+}
+
+WriteLine("\n\rPress the Enter key to continue");
+ReadLine();
